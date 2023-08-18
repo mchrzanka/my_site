@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    My Blog
+{% endblock %}
+
+{% block css_files %}
+
+    <link rel="stylesheet" href="{% static 'blog/index.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <section id="welcome">
+        <header>
+            <img src="{% static 'blog/images/me.jpg' %}" alt="Maya - the author of this blog"/>
+            <h2>Maya's Blog</h2>
+            <p>Hi I'm Maya, and I love to blog about tech and nature.</p>
+        </header>
+    </section>
+
+    <section id="latest-posts">
+        <h2>My latest thoughts</h2>
+        <ul>
+            {% for post in posts %}
+            {% include "blog/includes/post.html" %}
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section id="about">
+        <h2>What I Do</h2>
+        <p>I love programming, design, and learning new things in tech. I'm also always exploring the great outdoors!</p>
+        <p>My goal is to work a remote job while travelling the world and living a happy dumb little life!</p>
+    </section>
+{% endblock %}
