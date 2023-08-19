@@ -19,6 +19,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("", include("blog.urls")), #http://localhost:8000 , so this makes the home page the blog
     #path("blog/", include("blog.urls")) #http://localhost:8000/blog
-    path("", include("blog.urls")) #http://localhost:8000
+    path("store/", include("book_store.urls")) #http://localhost:8000/book_store
+    
 ]   

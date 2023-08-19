@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.urls import reverse
+from django.utils.text import slugify
 
 # Create your models here.
 class Book(models.Model):
@@ -7,6 +9,7 @@ class Book(models.Model):
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     author = models.CharField(null=True, max_length=100)
     is_bestselling = models.BooleanField(default=False)
+    slug = models.SlugField(default="", null=False) #harry-potter-1
 
     #blank=True: frontend (form), this field may be blank
     #null=True: when a value isn't received, a NULL value is stored in the database. If False, a default needs to be given.
@@ -18,3 +21,12 @@ class Book(models.Model):
     #You don't need to run migrations when you add methods to your classes, only when you change the structure of the class.
     def __str__(self):
         return f"{self.title} ({self.rating})"
+    
+    #a url that represents and loads the data of the specific model.
+    def get_absolute_url(self):
+        return reverse("book-detail", args=[self.slug])
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs) #make sure django's built in save method is still getting called, even if we're adding to it
+    

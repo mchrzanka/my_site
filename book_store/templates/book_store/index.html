@@ -1,0 +1,17 @@
+{% extends "book_store/base.html" %}
+
+{% block title%} All Books {% endblock%}
+
+{% block content%} 
+<h1>List of all Books</h1>
+<p>Num of books: {{ total_num_of_books }}</p>
+<p>Average Rating: {{ average_rating.rating__avg }}</p>
+<ul>
+    {% for book in books %}
+        {% comment %} <li><a href="{% url "book-detail" book.id %}">{{ book.title }} (Rating: {{ book.rating }})</a></li>  {% endcomment %}
+
+        {% comment %} we can either use the above way with the django url tag, and passing the name that we set in url.py and then the param, or we can add a method called get_absolute_url in the models.py that comes up with the url for us. Either way works fine. {% endcomment %}
+        <li><a href="{{ book.get_absolute_url }}">{{ book.title }} (Rating: {{ book.rating }})</a></li>  
+    {% endfor %}
+</ul>
+{% endblock%}
