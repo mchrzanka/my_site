@@ -9,7 +9,7 @@ class Book(models.Model):
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     author = models.CharField(null=True, max_length=100)
     is_bestselling = models.BooleanField(default=False)
-    slug = models.SlugField(default="", null=False) #harry-potter-1
+    slug = models.SlugField(default="", blank=True, null=False) #harry-potter-1
 
     #blank=True: frontend (form), this field may be blank
     #null=True: when a value isn't received, a NULL value is stored in the database. If False, a default needs to be given.
